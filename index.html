@@ -77,41 +77,59 @@
     <div class="hearts">💘💘💘</div>
     <h1>Ross James, will you be my Valentine?</h1>
     <div class="buttons">
-      <button class="yes" onclick="sayYes()">Yes 💖</button>
-      <button class="no" onmouseover="moveButton(this)">No 🙃</button>
+    <button class="yes" onclick="sayYes()">Yes 💖</button>
+    <button class="no" id="noBtn">No 🙃</button>
     </div>
   </div>
 
   <script>
-    function sayYes() {
-      document.body.innerHTML = `
-        <div style="
-          font-family: 'Comic Sans MS', 'Segoe UI', sans-serif;
-          height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: linear-gradient(135deg, #ff758c, #ff7eb3);
-          color: white;
-          text-align: center;
-          padding: 20px;
-        ">
-          <div>
-            <h1>The only choice, really. 😌</h1>
-            <p style="font-size: 1.2rem;">
-              You are a man of impeccable taste. <br>
-              I love you 💘
-            </p>
-          </div>
-        </div>
-      `;
-    }
+  const noBtn = document.getElementById("noBtn");
+  let noCount = 0;
 
-    function moveButton(button) {
-      const x = Math.random() * 200 - 100;
-      const y = Math.random() * 200 - 100;
-      button.style.transform = `translate(${x}px, ${y}px)`;
+  noBtn.addEventListener("mouseenter", () => {
+    noCount++;
+
+    const x = Math.random() * 300 - 150;
+    const y = Math.random() * 300 - 150;
+
+    noBtn.style.transform = `translate(${x}px, ${y}px) scale(${Math.max(
+      0.6,
+      1 - noCount * 0.1
+    )})`;
+
+    noBtn.style.opacity = Math.max(0.3, 1 - noCount * 0.15);
+
+    if (noCount > 5) {
+      noBtn.innerText = "Yes 😌";
+      noBtn.classList.remove("no");
+      noBtn.classList.add("yes");
+      noBtn.onclick = sayYes;
     }
-  </script>
+  });
+
+  function sayYes() {
+    document.body.innerHTML = `
+      <div style="
+        font-family: 'Comic Sans MS', 'Segoe UI', sans-serif;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        color: white;
+        text-align: center;
+        padding: 20px;
+      ">
+        <div>
+          <h1>The only choice, really.😌</h1>
+          <p style="font-size: 1.2rem;">
+            You are a man of impeccable taste. <br>
+            I love you ❤️
+          </p>
+        </div>
+      </div>
+    `;
+  }
+</script>
 </body>
 </html>
